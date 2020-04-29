@@ -1,22 +1,31 @@
 {
-  "name": "electron-quick-start",
+  "name": "zwift-workout-creator",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "lets you create custom workouts for Zwift via a comfortable interface",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --enable-logging",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "http://www.philipkretz.de",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "zwift",
+    "workout",
+    "training"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Philip Kretz",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^8.2.3"
+  },
+  "build": {
+    "appId": "zwift-workout-creator-1-0-0",
+    "mac": {
+      "category": "zwift.workout.creator"
+    }
+  },
+  "dependencies": {
+    "electron-packager": "^14.2.1"
   }
 }

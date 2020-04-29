@@ -1,19 +1,134 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css" crossorigin="anonymous">
+
+    <title>Zwift Workout Creator by Philip Kretz</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div class="col1">
+      <form name="training-form" id="training-form">
+        <div class="form-group" id="input-area-1">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Page 1/4</li>
+              <li class="breadcrumb-item">Basic data</li>
+            </ol>
+          </nav>
+          <label for="author-name">What's your name?</label>
+          <input type="text" class="form-control" id="author-name" placeholder="Your name">
+          <label for="training-type">What type of training do you like to create?</label>
+          <select class="form-control" id="training">
+            <option value="ride" selected="selected">Cycling</option>
+            <option value="run">Running</option>
+          </select>
+          <label for="training-name">How do you like to name this session?</label>
+          <input type="text" class="form-control" id="training-name" placeholder="Name of training session">
+          <label for="description">How would you describe this activity?</label>
+          <textarea class="form-control" id="description" placeholder="Describe your activity..." rows="2"></textarea>
+          <hr class="button-bar">
+          <button type="button" class="btn btn-primary button-next" data-page="2">Next</button>
+        </div>
+        <div class="form-group hide" id="input-area-2">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Page 2/4</li>
+              <li class="breadcrumb-item">Warmup</li>
+            </ol>
+          </nav>
+          <label for="warmup-duration">How long should your warm up phase be (in minutes)?</label><span id="warmup-duration-text"> 10 min</span>
+          <input type="range" class="form-control-range" min="0" max="60" value="10" id="warmup-duration">
+          <label for="warmup-power">How hard do you like to cycle (in % of FTP)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="warmup-power">
+          <label for="warmup-speed">How fast do you like to run (in % of max. km/h)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="warmup-speed">
+          <div>(Note: You are starting at 75% of this)</div>
+          <hr class="button-bar">
+          <button type="button" class="btn btn-primary button-next" data-page="3">Next</button>
+          <button type="button" class="btn btn-secondary button-back" data-page="1">Back</button>
+        </div>
+        <div class="form-group hide" id="input-area-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Page 3/4</li>
+              <li class="breadcrumb-item">Sections (intervals, steady state)</li>
+            </ol>
+          </nav>
+          <label for="training-type">What type of section do you like to create?</label>
+          <select class="form-control" id="section-type">
+            <option value="interval" selected="selected">Interval</option>
+            <option value="steady_state">Steady State</option>
+          </select>
+          <label for="section-duration">How long should this section be (in seconds)? <span id="section-duration-text"> 30 sec</span></label>
+          <input type="range" class="form-control-range" min="10" max="3600" value="30" id="section-duration">
+          <label for="interval-power">How hard do you like to cycle during the interval (in % of FTP)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="90" id="interval-power">
+          <label for="interval-speed">How fast do you like to run during the interval (in % of max. km/h)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="90" id="interval-speed">
+          <label for="section-recovery">How long should the recovery phase be (in seconds)? <span id="section-recovery-text"> 90 sec</span></label>
+          <input type="range" class="form-control-range" min="10" max="3600" value="90" id="section-recovery">
+          <label for="recovery-power">How hard do you like to cycle during the recovery phase (in % of FTP)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="recovery-power">
+          <label for="recovery-speed">How fast do you like to run the recovery phase (in % of max. km/h)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="recovery-speed">
+          <label for="section-repeats">How many repeats do you like to do (just for intervals)? <span id="section-repeats-text"> 5</span></label>
+          <input type="range" class="form-control-range" min="1" max="30" value="5" id="section-repeats">
+          <div class="top-margin">
+            <button type="button" class="btn btn-dark" id="button-add-section">+ Add section to training</button>
+            <div id="toast-add-session" class="alert alert-success hide top-margin" role="alert">
+              Successfully added a new section to session!
+            </div>
+          </div>
+          <hr class="button-bar">
+          <button type="button" class="btn btn-primary button-next" data-page="4">Next</button>
+          <button type="button" class="btn btn-secondary button-back" data-page="2">Back</button>
+        </div>
+        <div class="form-group hide" id="input-area-4">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Page 4/4</li>
+              <li class="breadcrumb-item">Cooldown</li>
+            </ol>
+          </nav>
+          <label for="cooldown-duration">How long should your cool down phase be (in minutes)?</label><span id="cooldown-duration-text"> 10 min</span>
+          <input type="range" class="form-control-range" min="0" max="60" value="10" id="cooldown-duration">
+          <label for="cooldown-power">How hard do you like to cycle (in % of FTP)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="cooldown-power">
+          <label for="cooldown-speed">How fast do you like to run (in % of max. km/h)?</label>
+          <input type="number" class="form-control" min="0" max="100" value="50" id="cooldown-speed">
+          <div>(Note: You are ending at 75% of this)</div>
+          <hr class="button-bar">
+          <button type="button" class="btn btn-primary" id="button-save">Generate and save File</button>
+          <button type="button" class="btn btn-secondary button-back" data-page="3">Back</button>
+          <div id="save-as-toast" class="alert alert-success hide top-margin" role="alert">
+            Save this file inside the local folder Documents/Zwift/Workouts/"Your-Zwift-ID"
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col2">
+      <ul class="list-group" id="training-sections">
+        <li data-id="warmup" class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+          Warmup <span id="warmup-duration-text2"> 10 min</span>
+        </li>
+        <li data-id="cooldown" class="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+          Cooldown <span id="cooldown-duration-text2"> 10 min</span>
+        </li>
+      </ul>
+      <div class="total-time-layer"><strong>Total: <span id="total-time">00:20:00h</span></strong></div>
+    </div>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+    <script src="./js/jquery-3.5.0.min.js" crossorigin="anonymous"></script>
+    <script src="./js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="./js/renderer.js" crossorigin="anonymous"></script>
+    <script src="./js/main.js" crossorigin="anonymous" type="module"></script>
   </body>
 </html>

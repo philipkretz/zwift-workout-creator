@@ -1,0 +1,84 @@
+html,body {
+	margin: 0;
+	padding: 0;
+	background: #474747;
+	color: #efefef;
+}
+
+.col1 {
+	position: absolute;
+	width: 60%;
+	left: 5px;
+	top: 5px;
+	height: auto;
+}
+
+.col2 {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 35%;
+	height: auto;
+}
+
+.hide {
+	display: none;
+}
+
+.breadcrumb-item {
+	color: #777;
+}
+
+.breadcrumb .breadcrumb-item:nth-child(2)::before {
+  content: "-";
+}
+
+.list-group-item {
+	color: #333;
+}
+
+.badge-remove {
+	cursor: pointer;
+}
+
+.top-margin {
+	margin-top: 15px;
+}
+
+.button-back {
+	margin-right: 5px;
+}
+
+.button-bar {
+	position: fixed;
+	bottom: 32px;
+	left: 0;
+	width: 100%;
+	border: 1px solid #333;
+}
+
+.button-next,#button-save {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+}
+
+.button-back {
+	position: fixed;
+	bottom: 5px;
+	left: 5px;
+}
+
+.total-time-layer {
+	margin-top: 5px;
+	margin-right: 5px;
+	float: right;
+}
+
+input[type=number] {
+	width: 100px;
+}
+
+#training,#section-type {
+	width: 200px;
+}
