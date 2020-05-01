@@ -11,11 +11,10 @@ function calcTotalTime() {
   for (let i=0;i<sections.length;i++) {
     if (sections[i] !== null) {
       if (sections[i].type == 'interval') {
-        totalDuration += sections[i].intervalCount*(sections[i].intervalLength+sections[i].recoveryLength);
-        console.log([sections[i].intervalCount,sections[i].intervalLength,sections[i].recoveryLength]);
+        totalDuration += sections[i].intervalCount*(sections[i].intervalLength*1+sections[i].recoveryLength*1);
       }
       else {
-        totalDuration += sections[i].intervalLength;
+        totalDuration += sections[i].intervalLength*1;
       }
     }
   }
