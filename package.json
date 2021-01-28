@@ -17,7 +17,7 @@
   "author": "Philip Kretz",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^8.2.3"
+    "electron": "^9.4.0"
   },
   "build": {
     "appId": "zwift-workout-creator-1-0-0",
